@@ -21,6 +21,14 @@ import com.service.interfaces.CountryService;
 
 public class Main {
 
+	/*
+	 * Implementiamo le CRUD sulle tabelle country e city (1 : n)
+	 * 
+	 * Usiamo le transazioni, arricchiamo quindi il ConnectionManager
+	 * 
+	 * Introduciamo inoltre Maven
+	 */
+
 	public static void main(String[] args) {
 
 		CountryService countryService = new CountryServiceImpl();

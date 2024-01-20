@@ -7,10 +7,10 @@ import com.model.vo.CityVO;
 
 public interface CityService {
 
-	// Quando il Country di riferimento e' gia' presente sul DB
+	// Country di riferimento gia' presente sul DB
 	Integer insertCity(CityDTO cityDTO);
 
-	// Quando il Country di riferimento e' gia' presente sul DB
+	// Country di riferimento e' gia' presente sul DB
 	Integer updateCity(Integer cityId, CityDTO cityDTO);
 
 	Integer deleteCity(Integer cityId);

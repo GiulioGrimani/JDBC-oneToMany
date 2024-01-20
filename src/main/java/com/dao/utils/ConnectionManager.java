@@ -43,34 +43,10 @@ public class ConnectionManager {
 	}
 
 	/*
-	 * Metodo che inizializza uno Statement (probabilmente inutile)
-	 */
-
-	public static Statement getStatement(Connection connection) throws SQLException {
-		return connection.createStatement();
-	}
-
-	/*
-	 * Metodo che inizializza un PreparedStatement
+	 * Restituisce un PreparedStatement
 	 */
 	public static PreparedStatement getPreparedStatement(Connection connection, String sql) throws SQLException {
 		return connection.prepareStatement(sql);
-	}
-
-	/*
-	 * Metodo che restituisce un ResultSet su uno Statement
-	 */
-	public static ResultSet getResultSetOnSt(Connection connection, String query) throws SQLException {
-		Statement st = connection.createStatement();
-		ResultSet rs = st.executeQuery(query);
-		return rs;
-	}
-
-	/*
-	 * Metodo che restituisce un ResultSet su un PreparedStatement
-	 */
-	public static ResultSet getResultSetOnPS(PreparedStatement ps) throws SQLException {
-		return ps.executeQuery();
 	}
 
 	/*
@@ -84,15 +60,30 @@ public class ConnectionManager {
 	}
 
 	/*
-	 * Metodo che imposta il livello di isolamento piu' sicuro
+	 * Restituisce un ResultSet su uno Statement
+	 */
+	public static ResultSet getResultSetOnSt(Connection connection, String query) throws SQLException {
+		Statement st = connection.createStatement();
+		ResultSet rs = st.executeQuery(query);
+		return rs;
+	}
+
+	/*
+	 * Restituisce un ResultSet su un PreparedStatement
+	 */
+	public static ResultSet getResultSetOnPS(PreparedStatement ps) throws SQLException {
+		return ps.executeQuery();
+	}
+
+	/*
+	 * Imposta il livello di isolamento piu' sicuro
 	 */
 	public static void setBestTransactionIsolationLevel(Connection connection) throws SQLException {
 		connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
 	}
 
 	/*
-	 * Esegue il commit di tutte le operazioni pendenti della transazione sulla
-	 * connessione
+	 * Esegue il commit di tutte le operazioni pendenti della transazione
 	 */
 	public static void doCommit(Connection connection) throws SQLException {
 		connection.commit();
@@ -105,6 +96,9 @@ public class ConnectionManager {
 		connection.rollback();
 	}
 
+	/*
+	 * Chiude la connessione
+	 */
 	public static void closeConnection(Connection connection) {
 		try {
 			connection.close();

@@ -17,4 +17,18 @@
 
 	</dependencies>
 
+
+<!-- Questo qui sotto serve per impostare la versione della runtime di Java -->
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>17</source>
+					<target>17</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>

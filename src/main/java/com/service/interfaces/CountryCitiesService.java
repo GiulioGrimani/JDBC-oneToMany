@@ -12,10 +12,12 @@ public interface CountryCitiesService {
 	 * Operazioni che coinvolgono entrambe le entity
 	 */
 
-	// Quando il Country di riferimento va prima inserito sul DB
+	// Sia il Country che la City non esistono sul DB: vengono inserite insieme in
+	// un'unica transazione
 	Integer insertCountryWithCity(CountryDTO countryDTO, CityDTO cityDTO);
 
-	// Quando il Country di riferimento va prima inserito sul DB
+	// Sia il Country che le Cities non esistono sul DB: vengono inserite insieme in
+	// un'unica transazione
 	Integer insertCountryWithCities(CountryDTO countryDTO, List<CityDTO> citiesDTO);
 
 	CountryCitiesVO readCitiesByCountry(Integer countryId);
