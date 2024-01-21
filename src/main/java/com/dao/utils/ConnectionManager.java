@@ -14,6 +14,9 @@ public class ConnectionManager {
 
 	private static Properties properties = getProperties();
 
+	/*
+	 * Restituisce una connessione sui parametri definiti nel config.properties
+	 */
 	public static Connection getConnection() {
 
 		Connection connection = null;
@@ -73,6 +76,26 @@ public class ConnectionManager {
 	 */
 	public static ResultSet getResultSetOnPS(PreparedStatement ps) throws SQLException {
 		return ps.executeQuery();
+	}
+
+	/*
+	 * Restituisce il numero di record interessati dall'esecuzione dello script Sql
+	 * nel caso di una DML, 0 nel caso di una DDL
+	 */
+	public static Integer executeSql(Connection connection, String sql) throws SQLException {
+		Statement st = connection.createStatement();
+		Integer result = st.executeUpdate(sql);
+		return result;
+	}
+
+	/*
+	 * Restituisce il numero di record interessati dall'esecuzione dello script Sql
+	 * sul PreparedStatement dato: un numero che potrebbe essere maggiore di 0 nel
+	 * caso di una DML, 0 nel caso di una DDL
+	 */
+	public static Integer executeSqlOnPs(PreparedStatement preparedStatement) throws SQLException {
+		Integer result = preparedStatement.executeUpdate();
+		return result;
 	}
 
 	/*

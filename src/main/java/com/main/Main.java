@@ -2,7 +2,6 @@ package com.main;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -132,16 +131,12 @@ public class Main {
 		Connection connection = ConnectionManager.getConnection();
 
 		try {
-			Statement st1 = connection.createStatement();
-			st1.executeUpdate(resetCities);
-			Statement st2 = connection.createStatement();
-			st2.executeUpdate(resetCountries);
-			Statement st3 = connection.createStatement();
-			st3.executeUpdate(resetCityIdCounter);
-			Statement st4 = connection.createStatement();
-			st4.executeUpdate(resetCountryIdCounter);
+			ConnectionManager.executeSql(connection, resetCities);
+			ConnectionManager.executeSql(connection, resetCountries);
+			ConnectionManager.executeSql(connection, resetCityIdCounter);
+			ConnectionManager.executeSql(connection, resetCountryIdCounter);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Qualcosa e' andato storto nel RESET_STATE...");
 			e.printStackTrace();
 		} finally {
 			ConnectionManager.closeConnection(connection);

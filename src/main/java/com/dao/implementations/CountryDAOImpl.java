@@ -31,7 +31,7 @@ public class CountryDAOImpl implements CountryDAO, CountrySQL {
 
 		ps.setString(1, countryDTO.getCountry());
 
-		Integer result = ps.executeUpdate();
+		Integer result = ConnectionManager.executeSqlOnPs(ps);
 
 		ConnectionManager.closeConnection(connection);
 
@@ -48,7 +48,7 @@ public class CountryDAOImpl implements CountryDAO, CountrySQL {
 		ps.setString(1, countryDTO.getCountry());
 		ps.setInt(2, countryId);
 
-		Integer result = ps.executeUpdate();
+		Integer result = ConnectionManager.executeSqlOnPs(ps);
 
 		ConnectionManager.closeConnection(connection);
 
@@ -57,8 +57,12 @@ public class CountryDAOImpl implements CountryDAO, CountrySQL {
 
 	/*
 	 * Attenzione: se voglio eliminare un Country, devo prima eliminare tutte le
-	 * Cities afferenti (non posso eliminare un Parent se esistono Child record),
-	 * quindi potrebbe essere opportuno gestire la transazione
+	 * Cities afferenti: non posso eliminare un record parent se e' referenziato da
+	 * almeno un record child. Quindi, in base a come dobbiamo interpretare il
+	 * metodo, potrebbe essere opportuno gestire manualmente la transazione. In
+	 * questo caso cancelliamo un Country presupponendo che non sia referenziato da
+	 * alcuna City (poiche' la gestione manuale della transazione la facciamo vedere
+	 * nel CountryCitiesDAOImpl)
 	 */
 	@Override
 	public Integer deleteCountry(Integer countryId) throws SQLException {
@@ -69,7 +73,7 @@ public class CountryDAOImpl implements CountryDAO, CountrySQL {
 
 		ps.setInt(1, countryId);
 
-		Integer result = ps.executeUpdate();
+		Integer result = ConnectionManager.executeSqlOnPs(ps);
 
 		ConnectionManager.closeConnection(connection);
 

@@ -25,12 +25,12 @@ public class CountryCitiesDAOImpl implements CountryCitiesDAO, CountryCitiesSQL 
 	 * 
 	 * Step per eseguire una transazione:
 	 * 
-	 * 1. Aprire una connessione
-	 * 2. Aprire una transazione impostando a false l'autocommit
+	 * 1. Aprire la connessione
+	 * 2. Aprire la transazione impostando a false l'autocommit
 	 * 3. Impostare il livello di isolamento desiderato (Serializable the best)
-	 * 4. Svolgere le varie dml
-	 * 5. eseguire il commit ed eventualmente il rollback
-	 * 6. chiudere la connessione
+	 * 4. Svolgere le varie DML
+	 * 5. Eseguire il commit ed eventualmente il rollback
+	 * 6. Chiudere la connessione
 	 */
 
 	@Override
@@ -47,12 +47,12 @@ public class CountryCitiesDAOImpl implements CountryCitiesDAO, CountryCitiesSQL 
 		// 3. Impostazione livello migliore di isolamento
 		ConnectionManager.setBestTransactionIsolationLevel(connection);
 
-		// 4. Esecuzione dml desiderate
+		// 4. Esecuzione DML desiderate
 		PreparedStatement countryPs = ConnectionManager.getPreparedStatementWithKeys(connection, INSERT_COUNTRY);
 
 		countryPs.setString(1, countryDTO.getCountry());
 
-		result += countryPs.executeUpdate();
+		result += ConnectionManager.executeSqlOnPs(countryPs);
 
 		ResultSet countryKeySet = countryPs.getGeneratedKeys();
 
@@ -67,7 +67,7 @@ public class CountryCitiesDAOImpl implements CountryCitiesDAO, CountryCitiesSQL 
 		cityPs.setString(1, cityDTO.getCity());
 		cityPs.setInt(2, countryId);
 
-		result += cityPs.executeUpdate();
+		result += ConnectionManager.executeSqlOnPs(cityPs);
 
 		try {
 			// 5. Esecuzione commit
@@ -99,7 +99,7 @@ public class CountryCitiesDAOImpl implements CountryCitiesDAO, CountryCitiesSQL 
 
 		countryPs.setString(1, countryDTO.getCountry());
 
-		result += countryPs.executeUpdate();
+		result += ConnectionManager.executeSqlOnPs(countryPs);
 
 		ResultSet countryKeySet = countryPs.getGeneratedKeys();
 
@@ -113,7 +113,7 @@ public class CountryCitiesDAOImpl implements CountryCitiesDAO, CountryCitiesSQL 
 			PreparedStatement cityPs = ConnectionManager.getPreparedStatement(connection, INSERT_CITY);
 			cityPs.setString(1, cityDTO.getCity());
 			cityPs.setInt(2, countryId);
-			result += cityPs.executeUpdate();
+			result += ConnectionManager.executeSqlOnPs(cityPs);
 		}
 
 		try {

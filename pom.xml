@@ -17,8 +17,16 @@
 
 	</dependencies>
 
+	<!-- Questo serve per impostare la versione della runtime di Java. La
+	versione cambiera' dopo aver fatto un maven force update -->
+	<!--	<properties>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+	</properties>-->
 
-<!-- Questo qui sotto serve per impostare la versione della runtime di Java -->
+
+	<!-- Questo serve per impostare la versione della runtime di Java.
+La versione cambiera' al salvataggio del pom -->
 	<build>
 		<plugins>
 			<plugin>

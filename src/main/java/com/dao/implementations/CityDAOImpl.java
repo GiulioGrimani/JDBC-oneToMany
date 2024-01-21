@@ -32,7 +32,7 @@ public class CityDAOImpl implements CityDAO, CitySQL {
 		ps.setString(1, cityDTO.getCity());
 		ps.setInt(2, cityDTO.getCountryId());
 
-		Integer result = ps.executeUpdate();
+		Integer result = ConnectionManager.executeSqlOnPs(ps);
 
 		ConnectionManager.closeConnection(connection);
 
@@ -50,7 +50,7 @@ public class CityDAOImpl implements CityDAO, CitySQL {
 		ps.setInt(2, cityDTO.getCountryId());
 		ps.setInt(3, cityId);
 
-		Integer result = ps.executeUpdate();
+		Integer result = ConnectionManager.executeSqlOnPs(ps);
 
 		ConnectionManager.closeConnection(connection);
 
@@ -66,7 +66,7 @@ public class CityDAOImpl implements CityDAO, CitySQL {
 
 		ps.setInt(1, cityId);
 
-		Integer result = ps.executeUpdate();
+		Integer result = ConnectionManager.executeSqlOnPs(ps);
 
 		ConnectionManager.closeConnection(connection);
 
